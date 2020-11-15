@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.mole-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
