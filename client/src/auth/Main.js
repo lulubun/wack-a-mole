@@ -1,22 +1,25 @@
-import React from "react";
-import { Router } from "@reach/router";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
-import ProfilePage from "./ProfilePage";
-import PasswordReset from "./PasswordReset";
+import React, { Component } from 'react';
+import TextField from '@material-ui/core/TextField';
+
+ const generateNumber = () => {  
+        return Math.floor(Math.random() * (5 - 1) + 1); 
+    }
 
 
-function Main() {
-  const user = null;
+class SignIn extends Component {
+    state = {
+        user: null,
+        pw: null,
+    };
 
-  return
-        user ?
-        (<ProfilePage />)
-      :
-        (<Router>
-          <SignUp path="signUp" />
-          <SignIn path="/" />
-          <MoleGroup path = "wack-a-mole" />
-        </Router>);
+    render(){
+       return (
+           <div style={{display: 'flex', flexDirection: 'column', maxWidth: 200, width: '50vw', 'align-items': 'center'}}>
+                <TextField id="standard-basic" label="Name" />
+                <TextField id="standard-basic" label="Password" />
+            </div>
+        )
+    };
 }
-export default Main;
+
+export default SignIn

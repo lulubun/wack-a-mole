@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Main from "../auth/Main";
-import UserProvider from "../providers/UserProvider";
+import MoleGroup from "./MoleGroup";
 import './App.css';
 
 
@@ -11,6 +11,7 @@ class App extends Component {
     score: 0,
     started: false,
     time: 30,
+    isAuth: false,
   };
 
   componentDidMount() {
@@ -46,11 +47,10 @@ class App extends Component {
   }
 
   render() {  
+    const { isAuth } = this.state;
     return (
       <div className="App">
-        <UserProvider>
-          <Main />
-        </UserProvider>
+          { !isAuth ? <MoleGroup />: <Main />}
       </div>
     );
   }

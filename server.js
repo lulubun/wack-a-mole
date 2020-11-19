@@ -1,8 +1,9 @@
 const express = require('express');
-const firestore = require("./firebase")
 const app = express();
+const mongoose = require('mongoose');
+const User = require('./schema/user_model');
+const HighScore = require('./schema/highScore_model')
 const { PORT, DBURL } = require("./config");
-const createUser = require("./controllers/authcontroller");
 
 
 
@@ -13,14 +14,22 @@ app.listen(port = defPort, function() {
    console.log('Server started on port: ' + port);
 });
 
+mongoose.Promise = global.Promise;
+
+
+mongoose.connect(dbUrl, {useNewUrlParser: true,  useUnifiedTopology: true});
+const db = mongoose.connection;
+
+
 app.get('/express_backend', (req, res) => {
   res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
 });
 
 app.get('/:user', (req, res) => {
-  res.send()
-})
+  console.log("CL Log: req", req.params.user)
+  const stuff = db.findOne({ name: req.params.user });
+  console.log("CL Log: stuff", stuff)
 
-app.get('/highScores', (req, res) => {
-  res.send()
-})
+  })
+  // .then((u) => res.send(u))
+//})
