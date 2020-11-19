@@ -1,0 +1,10 @@
+"use strict";
+require('dotenv').config();
+exports.DATABASE_URL = process.env.DBURL;
+exports.PORT = process.env.PORT || 5000;
+exports.API_KEY = process.env.API_KEY;
+exports.DBURL = process.env.PROID;
+exports.BUCKET = process.env.BUCKET;
+exports.MESSID = process.env.MESSID;
+exports.APPID = process.env.APPID;
+exports.AUTH_DOM = process.env.AUTH_DOM;
