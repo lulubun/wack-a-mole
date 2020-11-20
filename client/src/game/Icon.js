@@ -20,7 +20,7 @@ Icon.defaultProps = {
 
 Icon.propTypes = {
   size: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
   icon: PropTypes.string.isRequired,
   viewBox: PropTypes.string.isRequired,
   style: PropTypes.shape(PropTypes.object),

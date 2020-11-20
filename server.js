@@ -27,7 +27,7 @@ app.get('/express_backend', (req, res) => {
 
 app.get('/:user', (req, res) => {
   console.log("CL Log: req", req.params.user)
-  const stuff = db.findOne({ name: req.params.user });
+  const stuff = db.user.findOne({ name: req.params.user });
   console.log("CL Log: stuff", stuff)
 
   })

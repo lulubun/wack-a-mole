@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Main from "../auth/Main";
-import MoleGroup from "./MoleGroup";
+import MoleGroup from './MoleGroup';
+import Timer from './Timer';
 import './App.css';
 
 
@@ -11,46 +11,62 @@ class App extends Component {
     score: 0,
     started: false,
     time: 30,
-    isAuth: false,
+    highScore: null,
   };
 
-  componentDidMount() {
-      // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
-  }
-    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
+  // componentDidMount() {
+  //     // Call our fetch function below once the component mounts
+  //   this.callBackendAPI()
+  //     .then(res => this.setState({ data: res.express }))
+  //     .catch(err => console.log(err));
+  // }
+  //   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
+  // callBackendAPI = async () => {
+  //   const response = await fetch('/express_backend');
+  //   const body = await response.json();
 
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body;
-  };
+  //   if (response.status !== 200) {
+  //     throw Error(body.message) 
+  //   }
+  //   return body;
+  // };
 
   scorePoint = () => {
     if(this.state.started) this.setState({score: this.state.score + 1})
   }
 
-  playGame = () => {
-    const timer = () => this.state.started && this.setState({time: this.state.time - 1})
-    setInterval(timer, 1000);
-    this.setState({ started: true })
+  setHighScore = () => {
+    const { score, highScore } = this.state;
+    if (!highScore || (score > highScore)) {
+        this.setState({ highScore: score, score: 0 })
+    }
+  }
 
-    setTimeout(() => {
+  playGame = () => {
+    const { score, highScore, started, time } = this.state;
+    this.setState({ started: true });
+    setTimeout(() => {      
+      this.setHighScore()
       this.setState({ started: false })
-      clearInterval(timer)
     }, 30000);
   }
 
   render() {  
-    const { isAuth } = this.state;
+    const { score, highScore, time, started } = this.state;
     return (
       <div className="App">
-          { !isAuth ? <MoleGroup />: <Main />}
+        {started && (
+          <div>
+            <h2>Score: {score}</h2>
+            <Timer />
+          </div>
+        )}
+        <MoleGroup scorePoint={this.scorePoint} playing={started}/>
+        <button
+          disabled={started}
+          onClick={this.playGame}
+        >Play</button>
+        {highScore && <h2>High Score: {highScore}</h2>}
       </div>
     );
   }
